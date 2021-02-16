@@ -1,32 +1,41 @@
 <?php
-require('../vendor/autoload.php');
+header('Content-type:application/json;charset=utf-8');
 
+require_once('../vendor/autoload.php');
+require_once('./MyCurl.php');
+require_once('./HotelLoader.php');
+
+// Loading environment variables from .env
 $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv->load();
 
-// Getting environment variables
-$email = $_ENV['EMAIL_FOR_API_KEY'];
+$raw_api_key = $_ENV['RAW_API_KEY'];
 $host = $_ENV['HOST'];
 $url = $_ENV['URL'];
 
-
-$iso = 'es';
+// Getting the iso parameter
+$iso =
+  filter_input(INPUT_GET, 'iso', FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+// Request parameters
 $collection_name = 'hotels';
-
 $request_url = "{$url}{$iso}/{$collection_name}";
+$api_key = sha1($raw_api_key);
+$curl_options = array(
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_HTTPHEADER => [
+    "Host: $host",
+    "X-API-Key: $api_key",
+    'Content-Type: application/json'
+  ]
+);
 
-$api_key = sha1($email);
+// Getting data
+$my_curl = new MyCurl($request_url, $curl_options);
+$curl_response = $my_curl->getData();
 
-$curl = curl_init($request_url);
+$hotels = $curl_response["data"];
+//$hotel_loader = new HotelLoader($hotels);
 
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_HTTPHEADER, [
-  "Host: $host",
-  "X-API-Key: $api_key",
-  'Content-Type: application/json'
-]);
+$response = $curl_response;
 
-$response = curl_exec($curl);
-curl_close($curl);
-
-echo $response . PHP_EOL;
+echo json_encode($response);
