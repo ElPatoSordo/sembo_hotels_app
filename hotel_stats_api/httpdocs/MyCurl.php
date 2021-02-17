@@ -1,50 +1,50 @@
 <?php
 class MyCurl
 {
-  private $curl;
-  const MAX_TRIES = 10;
+  const MAX_TRIES = 15;
   const SECONDS_BETWEEN_TRIES = 0.5;
 
-  function __construct($request_url, $options)
+  private function initCurl($options)
   {
-    $this->initCurl($request_url, $options);
+    $curl = curl_init();
+    curl_setopt_array($curl, $options);
+    return $curl;
   }
 
-  private function initCurl($request_url, $options)
+  public function getData($options)
   {
-    $this->curl = curl_init($request_url);
-    curl_setopt_array($this->curl, $options);
-  }
+    $curl = $this->initCurl($options);
 
-  public function getData()
-  {
-    $error = 'Curl session has not been initialized';
-    $data = null;
-
-    if (isset($this->curl)) {
+    if ($curl) {
       $tries = 0;
       do {
         $tries++;
+
         $error = null;
-        $data = json_decode(curl_exec($this->curl));
-        $response_code = curl_getinfo($this->curl, CURLINFO_RESPONSE_CODE);
+        $data = curl_exec($curl);
+
+        $response_code = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+        $curl_errno = curl_errno($curl);
+        $curl_error = curl_error($curl);
+
+        if ($curl_errno) {
+          $error = "cURL error ($curl_errno): $curl_error";
+        }
 
         if ($response_code === 200) break;
 
-        $error = "The server responded with code $response_code";
-
         if ($tries >= self::MAX_TRIES) {
-          $error = 'Error loading data';
+          $error = "Last error: $error";
           break;
         };
 
         sleep(self::SECONDS_BETWEEN_TRIES);
       } while (true);
 
-      curl_close($this->curl);
+      curl_close($curl);
     }
 
-    $response = array('error' => $error, 'data' => $data);
+    $response = array('error' => $error, 'data' => json_decode($data, true));
 
     return $response;
   }
