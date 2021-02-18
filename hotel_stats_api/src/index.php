@@ -2,8 +2,8 @@
 header('Content-type:application/json;charset=utf-8');
 
 require_once('../vendor/autoload.php');
-require_once('./MyCurl.php');
-require_once('./HotelLoader.php');
+require_once('./classes/MyCurl.php');
+require_once('./classes/HotelLoader.php');
 
 // Loading environment variables from .env
 $dotenv = Dotenv\Dotenv::createImmutable('../');
@@ -39,23 +39,21 @@ $curl_response = $my_curl->getData($curl_options);
 
 $hotels = $curl_response["data"];
 $error = $curl_response["error"];
-$data = null;
 
-if ($hotels) {
-  $hotel_loader = new HotelLoader($hotels);
-  var_dump($hotel_loader->average_score);
-  $data = array(
-    'iso_country_id' => $iso_country_id,
-    'average_score' => $hotel_loader->average_score,
-    'top_hotels' => $hotel_loader->topHotels()
-  );
+// Sometimes I get no errors when I try to load with an unknown iso id so here I check that
+if (!$hotels && !$error) {
+  $error = 'No hotels found';
 }
 
-if (!$data && !$error) {
-  $error = 'Something went wrong';
-  $data = array(
-    'iso_country_id' => $iso_country_id
-  );
+$data = array(
+  'iso_country_id' => $iso_country_id
+);
+
+// Building the response data if there are hotels
+if ($hotels) {
+  $hotel_loader = new HotelLoader($hotels);
+  $data['average_score'] = $hotel_loader->average_score;
+  $data['top_hotels'] = $hotel_loader->topHotels();
 }
 
 $response = array('error' => $error, 'data' => $data);
