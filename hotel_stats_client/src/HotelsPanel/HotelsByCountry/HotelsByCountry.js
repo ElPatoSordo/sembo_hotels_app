@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from '../../axios';
 
+import classes from './HotelsByCountry.module.css';
 import Hotel from '../Hotel/Hotel';
 
 class HotelsByCountry extends Component {
@@ -36,29 +37,38 @@ class HotelsByCountry extends Component {
     if (data) {
       hotels = data.top_hotels;
       if (hotels) {
-        average_score = <p>Average score: {data.average_score}</p>;
-        hotels = hotels.map((hotel) => (
-          <Hotel key={hotel.id} name={hotel.name} score={hotel.score} />
-        ));
+        average_score = (
+          <h4 className={classes.Score}>Average score: {data.average_score}</h4>
+        );
+        hotels = (
+          <Fragment>
+            <h3 className={classes.Top}>Top 3 hotels</h3>
+            <div className={classes.HotelList}>
+              {hotels.map((hotel) => (
+                <Hotel key={hotel.id} name={hotel.name} score={hotel.score} />
+              ))}
+            </div>
+          </Fragment>
+        );
       }
     }
 
+    const loading = this.state.loading ? <p>Loading...</p> : null;
+
     const hotels_info = (
-      <div>
+      <div className={classes.Info}>
+        {loading}
         {error}
         {average_score}
         {hotels}
       </div>
     );
 
-    const loading = this.state.loading ? <p>Loading...</p> : null;
-
     return (
       <div>
-        <h2>
-          Top hotels in {this.props.country} ({this.props.iso_country_id})
+        <h2 className={classes.Title}>
+          {this.props.country} ({this.props.iso_country_id})
         </h2>
-        {loading}
         {hotels_info}
       </div>
     );

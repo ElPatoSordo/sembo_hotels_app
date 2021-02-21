@@ -1,0 +1,27 @@
+.Hotel {
+  padding: 10px;
+  border: 1px solid lavender;
+}
+
+.Hotel:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.Hotel .Name {
+  margin: 0 0 1em 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Hotel .Score {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Hotel .Score span {
+  padding: 5px 10px;
+  color: #ffffff;
+  background-color: #e6007e;
+  border-radius: 5px;
+  border: 2px solid #333333;
+}

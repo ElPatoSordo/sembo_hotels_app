@@ -1,0 +1,29 @@
+.Title {
+  margin: 0;
+  padding: 10px;
+  background-color: #004e6d;
+  color: #ffffff;
+  text-align: center;
+}
+
+.Info {
+  color: #333333;
+}
+
+.Info .Score {
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  background-color: #dfe7ea;
+}
+
+.Info .Top {
+  text-align: center;
+}
+
+.Info .HotelList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
