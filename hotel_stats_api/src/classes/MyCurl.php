@@ -1,7 +1,7 @@
 <?php
 class MyCurl
 {
-  const MAX_TRIES = 15;
+  const MAX_TRIES = 20;
   const SECONDS_BETWEEN_TRIES = 0.5;
 
   private function initCurl($options)
@@ -34,7 +34,7 @@ class MyCurl
         if ($response_code === 200) break;
 
         if ($tries >= self::MAX_TRIES) {
-          $error = "Last error: $error";
+          $error = "Something went wrong - $error";
           break;
         };
 

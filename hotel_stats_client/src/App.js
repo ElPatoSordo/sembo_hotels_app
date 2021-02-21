@@ -1,25 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import HotelsPanel from './HotelsPanel/HotelsPanel';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const app = () => (
+  <div>
+    <header>
+      <h1>Hotel stats loader</h1>
+    </header>
+    <HotelsPanel />
+  </div>
+);
 
-export default App;
+export default app;
