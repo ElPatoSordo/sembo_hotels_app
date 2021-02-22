@@ -2,6 +2,7 @@
   "name": "hotel_stats_client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost/hotel_stats_client/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
