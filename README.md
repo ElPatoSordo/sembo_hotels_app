@@ -17,6 +17,17 @@ The server application is made with PHP. Using cURL library, the app makes a cal
 
 ## Installation
 
+1. Clone this repository in the root folder of the server (htdocs or www)
+2. In the hotel_stats_api folder, edit properties of the .env.example file:
+    * RAW_API_KEY should be the API key before aplying the SHA1 hash.
+    * HOST 
+    * URL should be the URL to the Sembo's API (until the "/" before the iso parameter)
+3. In the axios.js folder of the client, feel free to edit the baseURL property. It should be the url to the API in the server (the folder that contains index.php). I used 'http://localhost/hotel_stats_api/src/' because I haven't changed the Apache configuration and haven't configured the hosts.
+4. After the previoues steps, execute the install_sembo.ps1 script.
+5. Start the Server and the client should work.
+
+Alternative if the script does not work:
+
 1. In the hotel_stats_api folder, rename the .env.example file to .env and edit its properties:
     * RAW_API_KEY should be the API key before aplying the SHA1 hash.
     * HOST 
@@ -25,3 +36,4 @@ The server application is made with PHP. Using cURL library, the app makes a cal
 3. Move the hotel_stats_api folder to www/ or htdocs/ if using XAMPP. Then, in the hotel_stats_api folder, run `composer install`.
 4. In the client folder, run `npm install`. Then, run `npm run build`.
 5. Copy the contents of the build folder to www/hotel_stats_client/ or htdocs/hotel_stats_client/ if using XAMPP.
+6. Start the server and the client should work.
