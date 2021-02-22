@@ -1,5 +1,10 @@
 .Hotel {
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 150px;
+  padding: 10px 15px;
   border: 1px solid lavender;
 }
 
@@ -8,20 +13,36 @@
 }
 
 .Hotel .Name {
-  margin: 0 0 1em 0;
+  margin: 0;
+  font-size: 18px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .Hotel .Score {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.Hotel .Score span {
+  align-self: flex-end;
   padding: 5px 10px;
   color: #ffffff;
   background-color: #e6007e;
   border-radius: 5px;
   border: 2px solid #333333;
+}
+
+@media only screen and (min-width: 600px) {
+  .Hotel {
+    width: calc(50% - 20px);
+    margin: 10px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Hotel {
+    width: calc(33% - 10px);
+    margin: 5px;
+  }
+
+  .Hotel .Name {
+    font-size: 20px;
+  }
 }

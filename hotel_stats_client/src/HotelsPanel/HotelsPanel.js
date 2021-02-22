@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import HotelsByCountry from './HotelsByCountry/HotelsByCountry';
 import countries from '../Countries';
+import classes from './HotelsPanel.module.css';
 
 class HotelsPanel extends Component {
   state = {
@@ -16,7 +17,11 @@ class HotelsPanel extends Component {
         country={country.name}
       />
     ));
-    return <div>{list_hotels_country}</div>;
+    return (
+      <div className={classes.HotelsPanel}>
+        <div>{list_hotels_country}</div>
+      </div>
+    );
   }
 }
 

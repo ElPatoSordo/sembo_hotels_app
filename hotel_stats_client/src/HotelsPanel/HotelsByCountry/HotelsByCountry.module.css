@@ -3,22 +3,34 @@
   padding: 10px;
   background-color: #004e6d;
   color: #ffffff;
-  text-align: center;
+  font-size: 20px;
 }
 
 .Info {
   color: #333333;
+  border-left: 2px solid lavender;
+  border-right: 2px solid lavender;
+}
+
+.Title,
+.Info .Loading,
+.Info .Error,
+.Info .Top,
+.Info .Score {
+  text-align: center;
+}
+
+.Info .Loading,
+.Info .Error,
+.Info .Top,
+.Info .Score {
+  font-size: 18px;
 }
 
 .Info .Score {
   margin: 0;
   padding: 5px;
-  text-align: center;
   background-color: #dfe7ea;
-}
-
-.Info .Top {
-  text-align: center;
 }
 
 .Info .HotelList {
@@ -26,4 +38,31 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 10px 20px;
+}
+
+@media only screen and (min-width: 600px) {
+  .Info .HotelList {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .Title {
+    font-size: 22px;
+  }
+
+  .Info .Loading,
+  .Info .Error,
+  .Info .Top,
+  .Info .Score {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .Info {
+    border-left: 2px solid lavender;
+    border-right: 2px solid lavender;
+  }
 }

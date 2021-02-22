@@ -31,7 +31,7 @@ class HotelsByCountry extends Component {
     const data = this.state.data;
 
     if (error_msg) {
-      error = <p>{error_msg}</p>;
+      error = <p className={classes.Error}>{error_msg}</p>;
     }
 
     if (data) {
@@ -42,7 +42,7 @@ class HotelsByCountry extends Component {
         );
         hotels = (
           <Fragment>
-            <h3 className={classes.Top}>Top 3 hotels</h3>
+            <h3 className={classes.Top}>Top hotels</h3>
             <div className={classes.HotelList}>
               {hotels.map((hotel) => (
                 <Hotel key={hotel.id} name={hotel.name} score={hotel.score} />
@@ -53,7 +53,9 @@ class HotelsByCountry extends Component {
       }
     }
 
-    const loading = this.state.loading ? <p>Loading...</p> : null;
+    const loading = this.state.loading ? (
+      <p className={classes.Loading}>Loading...</p>
+    ) : null;
 
     const hotels_info = (
       <div className={classes.Info}>
@@ -65,7 +67,7 @@ class HotelsByCountry extends Component {
     );
 
     return (
-      <div>
+      <div className={classes.HotelsByCountry}>
         <h2 className={classes.Title}>
           {this.props.country} ({this.props.iso_country_id})
         </h2>
